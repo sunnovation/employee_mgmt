@@ -1,6 +1,7 @@
 package com.employee.managment.profiles.service;
 
 import com.employee.managment.profiles.common.EmployeeProfileRequest;
+import com.employee.managment.profiles.constant.Level;
 import com.employee.managment.profiles.constant.ProfileProperties;
 import com.employee.managment.profiles.record.BillingStatus;
 import com.employee.managment.profiles.record.EmployeeProfile;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.UUID;
+
 
 @Service
 public class EmployeeProfileService {
@@ -20,7 +22,8 @@ public class EmployeeProfileService {
     }
 
     public HashMap<String, Object> createEmployeeProfile(EmployeeProfileRequest employeeProfileRequest) {
-      HashMap<String,Object> response=new HashMap<>();
+
+        HashMap<String,Object> response=new HashMap<>();
        try {
            response.put("status", true);
            EmployeeProfile profile = new EmployeeProfile(
@@ -44,20 +47,24 @@ public class EmployeeProfileService {
        return response;
     }
 
-    public HashMap<String, Object> filterEmployeeProfile(String filter, String data) {
+    public HashMap<String, Object> filterEmployeeProfile(String level,String filter, String data) {
         HashMap<String,Object> response=new HashMap<>();
         try{
             response.put("status", true);
-            if(filter.equalsIgnoreCase(ProfileProperties.LOCATION.toString())){
-                response.put("data",employeeProfileRepository.findByLocation(data));
-            }else if(filter.equalsIgnoreCase(ProfileProperties.GENDER.toString())){
-                response.put("data",employeeProfileRepository.findByGender(data));
-            }else if(filter.equalsIgnoreCase(ProfileProperties.CLIENT.toString())){
-                response.put("data",employeeProfileRepository.findByClient(data));
-            }else if(filter.equalsIgnoreCase(ProfileProperties.DESIGNATION.toString())){
-                response.put("data",employeeProfileRepository.findByDesignation(data));
-            }else if(filter.equalsIgnoreCase(ProfileProperties.GRADE.name())){
-                response.put("data",employeeProfileRepository.findByGrade(data));
+            if(level.equalsIgnoreCase(Level.FIRST_LEVEL.name())) {
+                if (filter.equalsIgnoreCase(ProfileProperties.LOCATION.toString())) {
+                    response.put("data", employeeProfileRepository.findByLocation(data));
+                } else if (filter.equalsIgnoreCase(ProfileProperties.GENDER.toString())) {
+                    response.put("data", employeeProfileRepository.findByGender(data));
+                } else if (filter.equalsIgnoreCase(ProfileProperties.CLIENT.toString())) {
+                    response.put("data", employeeProfileRepository.findByClient(data));
+                } else if (filter.equalsIgnoreCase(ProfileProperties.DESIGNATION.toString())) {
+                    response.put("data", employeeProfileRepository.findByDesignation(data));
+                } else if (filter.equalsIgnoreCase(ProfileProperties.GRADE.name())) {
+                    response.put("data", employeeProfileRepository.findByGrade(data));
+                }
+            } else if(level.equalsIgnoreCase(Level.SECOND_LEVEL.name())){
+
             }
             response.put("code", "200");
         }catch(Exception ex){

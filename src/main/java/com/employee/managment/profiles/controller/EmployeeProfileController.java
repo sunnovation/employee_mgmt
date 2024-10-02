@@ -28,8 +28,10 @@ public class EmployeeProfileController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<HashMap<String,Object>> filterEmployeeProfile(@RequestParam String filter,@RequestParam String data){
-        return new ResponseEntity<>(employeeProfileService.filterEmployeeProfile(filter,data),HttpStatus.OK);
+    public ResponseEntity<HashMap<String,Object>> filterEmployeeProfile(@RequestParam String level,@RequestParam String filter,@RequestParam String data){
+        return new ResponseEntity<>(employeeProfileService.filterEmployeeProfile(level,filter,data),HttpStatus.OK);
     }
+
+
 
 }
