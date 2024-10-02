@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EmployeeManagementApplication {
 	/**
 	 * Create by Pawan Barthunia
-	 * @param args
+	 *
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(EmployeeManagementApplication.class, args);
